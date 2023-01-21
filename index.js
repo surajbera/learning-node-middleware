@@ -77,7 +77,11 @@ const errorHandler = (err, req, res, next) => {
   }
 }
 
-app.use('*', (req, res) => {
+/* 
+  -> Notice, this is app.all and not app.use
+  -> This will run for every other route not defined in here 
+*/
+app.all('*', (req, res) => {
   res.status(404)
   throw new Error('Route not found')
 })
