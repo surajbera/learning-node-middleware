@@ -1,5 +1,6 @@
 console.clear()
 const express = require('express')
+const router = express.Router()
 const app = express()
 require('./scripts/colors')
 const port = 5001
