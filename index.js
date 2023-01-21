@@ -1,10 +1,17 @@
 console.clear()
 const express = require('express')
-const path = require('path')
 const app = express()
+const path = require('path')
+const multer = require('multer')
+const logger = require('morgan')
 const router = express.Router()
 require('./scripts/colors')
 const port = 5001
+const upload = multer({ dest: './public/uploads' }) /* this line creates uploads folder in public directory */
+
+/* Third party middleware */
+/* loggerMiddleware is our version of morgan */
+app.use(logger('dev'))
 
 /* Built in middleware */
 app.use(express.json())
@@ -76,6 +83,14 @@ const errorHandler = (err, req, res, next) => {
       break
   }
 }
+
+/* Third party middleware */
+app.post('/upload', upload.single('image'), (req, res, next) => {
+  console.log(req.file, req.body);
+  res.send(req.file)
+}, (err, req, res, next) => {
+  res.status(400).send({ err: err.message })
+})
 
 app.all('*', (req, res) => {
   res.status(404)
