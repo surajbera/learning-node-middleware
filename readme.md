@@ -1,0 +1,5 @@
+- Application-Level Middleware
+- Third-Party Middleware
+- Router-Level Middleware
+- Built-In Middleware
+- Error-Handling Middleware
